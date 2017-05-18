@@ -1,0 +1,4 @@
+# Ignore IDE and vendor files
+.htaccess
+.idea/
+vendor/*

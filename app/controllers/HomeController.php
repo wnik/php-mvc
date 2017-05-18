@@ -12,10 +12,9 @@ class HomeController extends BaseController
 {
     public function indexAction()
     {
-        View::render('includes/header.php');
         View::render('Home/index.php', array(
-            'title' => 'Blablabal'
+            'title' => 'Blablabal',
+            'message' => 'Welcome! It is home page.'
         ));
-        View::render('includes/footer.php');
     }
 }

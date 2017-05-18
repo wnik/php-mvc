@@ -8,10 +8,9 @@ class ErrorController extends BaseController
 {
     public function indexAction()
     {
-        View::render('includes/header.php');
         View::render('Error404/index.php', array(
-            'title' => 'Page not found - error 404'
+            'title' => 'Page not found - error 404',
+            'message' => 'Sorry! It is error 404 page'
         ));
-        View::render('includes/footer.php');
     }
 }

@@ -3,6 +3,7 @@
 
 namespace App\Core;
 
+use App\Interfaces\FilterInterface;
 
 class Request
 {

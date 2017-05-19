@@ -2,8 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Core\PDOConnection;
 use App\Core\View;
+use App\Models\ArticleModel;
+use App\Repositories\ArticleRepository;
+use App\Storages\PDOStorage;
 
 /**
  * Class HomeController
@@ -13,10 +15,9 @@ class HomeController extends BaseController
 {
     public function indexAction()
     {
-        $pdo = PDOConnection::getInstance();
-        $conn = $pdo->getConnection();
-
-        var_dump($conn);
+        $repository = new ArticleRepository(PDOStorage::getInstance());
+        $article = new ArticleModel(1, 'Example Title', 'Example Content', '2017-05-19', 'admin');
+        $repository->add($article);
 
         View::render('Home/index.php', array(
             'title' => 'Home - News',

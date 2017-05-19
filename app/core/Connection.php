@@ -9,5 +9,5 @@ abstract class Connection
 
     abstract public static function getInstance();
 
-    abstract public function getConnection();
+//    abstract public function getConnection();
 }

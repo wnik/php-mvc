@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Core;
+namespace App\Storages;
 
-use App\Core\Config;
+use App\Core\{Connection, Config};
+use App\Interfaces\StorageInterface;
 
-class PDOConnection extends Connection
+class PDOStorage extends Connection implements StorageInterface
 {
     public static function getInstance()
     {
@@ -27,6 +28,31 @@ class PDOConnection extends Connection
 
             die();
         }
+    }
+
+    public function save()
+    {
+        // TODO: Implement save() method.
+    }
+
+    public function findAll()
+    {
+        // TODO: Implement findAll() method.
+    }
+
+    public function findById()
+    {
+        // TODO: Implement findBy() method.
+    }
+
+    public function update()
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function delete()
+    {
+        // TODO: Implement delete() method.
     }
 
     private function __construct() {}

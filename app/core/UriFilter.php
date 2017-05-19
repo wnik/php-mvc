@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Interfaces\FilterInterface;
+
 
 class UriFilter implements FilterInterface
 {

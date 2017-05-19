@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\PDOConnection;
 use App\Core\View;
 
 /**
@@ -13,7 +14,7 @@ class HomeController extends BaseController
     public function indexAction()
     {
         View::render('Home/index.php', array(
-            'title' => 'Blablabal',
+            'title' => 'Home - News',
             'message' => 'Welcome! It is home page.'
         ));
     }

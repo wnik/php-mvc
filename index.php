@@ -2,17 +2,22 @@
 
     require 'vendor/autoload.php';
 
-    use App\Core\{Routes, Route, Request, Router, UriFilter};
+    use App\Core\{Routes, Route, Request, Router, UriFilter, TxtFileLogger, View};
 
 
-    $routes = new Routes();
+    $logger = new TxtFileLogger('logs.txt');
+
+    $view = new View($logger);
+
+    $routes = new Routes($logger);
 
     $routes->add('home_page',
                  new Route('/^$/',
                      array(
                          'controller' => 'Home',
                          'action' => 'index'
-                     )
+                     ),
+                    $logger
                  )
     );
 
@@ -21,7 +26,8 @@
                      array(
                          'controller' => 'Error',
                          'action' => 'index'
-                     )
+                     ),
+                    $logger
                  )
     );
 
@@ -30,7 +36,8 @@
                      array(
                          'controller' => 'Article',
                          'action' => 'find'
-                     )
+                     ),
+                    $logger
                  )
     );
 
@@ -39,10 +46,11 @@
                      array(
                          'controller' => 'Article',
                          'action' => 'showAll'
-                     )
+                     ),
+                    $logger
                  )
     );
 
-    $request = new Request($_SERVER['REQUEST_URI'], new UriFilter(), $routes);
+    $request = new Request($_SERVER['REQUEST_URI'], new UriFilter(), $routes, $view, $logger);
 
     $router = new Router($request, $routes);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Core;
+use App\Interfaces\LoggerInterface;
 
 /**
  * Class View
@@ -8,7 +9,14 @@ namespace App\Core;
  */
 class View
 {
-    public static function render(string $file, array $variables = array(), int $status = 200)
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function render(string $file, array $variables = array(), int $status = 200)
     {
         extract($variables);
 
@@ -21,6 +29,10 @@ class View
             require_once $filePath;
         }
         else
+        {
+            $this->logger->log("View: $filePath not found");
+
             throw new \Exception("View: $filePath not found");
+        }
     }
 }

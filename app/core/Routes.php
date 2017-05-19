@@ -4,9 +4,17 @@
 namespace App\Core;
 
 
+use App\Interfaces\LoggerInterface;
+
 class Routes implements \IteratorAggregate
 {
     private $items = array();
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
 
     public function getIterator()
     {
@@ -16,7 +24,11 @@ class Routes implements \IteratorAggregate
     public function add(string $key, Route $route)
     {
         if ($this->isExists($key))
-            throw new \Exception("Route $key is already in use");
+        {
+            $this->logger->log("Routes: $key is already in use");
+
+            throw new \Exception("Routes: $key is already in use");
+        }
         else
             $this->items[$key] = $route;
     }
@@ -26,7 +38,11 @@ class Routes implements \IteratorAggregate
         if ($this->isExists($key))
             unset($this->items[$key]);
         else
-            throw new \Exception("Route $key is not exists");
+        {
+            $this->logger->log("Routes: $key is not exists");
+
+            throw new \Exception("Routes: $key is not exists");
+        }
     }
 
     public function isExists(string $key): bool
@@ -39,6 +55,10 @@ class Routes implements \IteratorAggregate
         if ($this->isExists($key))
             return $this->items[$key];
         else
-            throw new \Exception("Route $key cannot be found");
+        {
+            $this->logger->log("Routes: $key cannot be found");
+
+            throw new \Exception("Routes: $key cannot be found");
+        }
     }
 }

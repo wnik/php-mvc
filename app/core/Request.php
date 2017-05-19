@@ -4,6 +4,7 @@
 namespace App\Core;
 
 use App\Interfaces\FilterInterface;
+use App\Interfaces\LoggerInterface;
 
 class Request
 {
@@ -12,11 +13,15 @@ class Request
     private $routes = null;
     private $slug = null;
     private $requestedRouteName = null;
+    private $view;
+    private $logger;
 
-    public function __construct(string $uri, FilterInterface $uriFilter, Routes & $routes)
+    public function __construct(string $uri, FilterInterface $uriFilter, Routes & $routes, View $view, LoggerInterface $logger)
     {
         $this->uri = $uriFilter->filter($uri);
         $this->routes = $routes;
+        $this->view = $view;
+        $this->logger = $logger;
     }
 
     public function match(): bool
@@ -62,7 +67,7 @@ class Request
 
         if (class_exists($controller))
         {
-            $controller = new $controller();
+            $controller = new $controller($this->view);
 
             $action = $route->getAction() . 'Action';
 
@@ -74,9 +79,17 @@ class Request
                     $controller->$action();
             }
             else
-                throw new \Exception("Action does not exists or action name is incorrect: $controller");
+            {
+                $this->logger->log("Request: Action does not exists or action name is incorrect -> $controller");
+
+                throw new \Exception("Request: Action does not exists or action name is incorrect -> $controller");
+            }
         }
         else
-            throw new \Exception("Controller does not exists or controller name is incorrect: $controller");
+        {
+            $this->logger->log("Request: Controller does not exists or controller name is incorrect -> $controller");
+
+            throw new \Exception("Controller does not exists or controller name is incorrect -> $controller");
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use App\Core\View;
 
 /**
  * Class BaseController
@@ -8,6 +9,12 @@ namespace App\Controllers;
  */
 abstract class BaseController
 {
-    abstract protected function indexAction();
+    protected $view;
 
+    public function __construct(View $view)
+    {
+        $this->view = $view;
+    }
+
+    abstract protected function indexAction();
 }

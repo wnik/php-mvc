@@ -19,11 +19,11 @@ class HomeController extends BaseController
         $article = new ArticleModel(1, 'Example Title', 'Example Content', '2017-05-19', 'admin');
         $repository->add($article);
 
-        View::render('Home/index.php',
-                        array(
-                            'title' => 'Home - News',
-                            'message' => 'Welcome! It is home page.'
-                        )
+        $this->view->render('Home/index.php',
+                            array(
+                                'title' => 'Home - News',
+                                'message' => 'Welcome! It is home page.'
+                            )
         );
     }
 }

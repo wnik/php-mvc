@@ -4,7 +4,7 @@ namespace App\Core;
 
 use App\Core\Config;
 
-class PDOConnection extends DBConnection
+class PDOConnection extends Connection
 {
     public static function getInstance()
     {
@@ -14,7 +14,7 @@ class PDOConnection extends DBConnection
         return self::$instance;
     }
 
-    public function getConnection()
+    public function getConnection(): \PDO
     {
         try {
             $handle = new \PDO('mysql:host=' . Config::DB['host'] . ';dbname=' . Config::DB['name'], Config::DB['user'], Config::DB['pass']);

@@ -3,7 +3,7 @@
 namespace App\Core;
 
 
-abstract class DBConnection
+abstract class Connection
 {
     protected static $instance;
 

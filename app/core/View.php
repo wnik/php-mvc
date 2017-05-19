@@ -8,14 +8,18 @@ namespace App\Core;
  */
 class View
 {
-    public static function render(string $file, array $variables = array())
+    public static function render(string $file, array $variables = array(), int $status = 200)
     {
         extract($variables);
 
         $filePath = dirname(__DIR__) . '/views/' . $file;
 
         if (file_exists($filePath))
+        {
+            http_response_code($status);
+
             require_once $filePath;
+        }
         else
             throw new \Exception("View: $filePath not found");
     }

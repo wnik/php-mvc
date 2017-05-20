@@ -4,8 +4,9 @@
 
     use App\Core\{Routes, Route, Request, Router, UriFilter, TxtFileLogger, View};
 
-    set_exception_handler(function(Exception $exception) {
-        $logger = new TxtFileLogger('logs.txt');
+    $logger = new TxtFileLogger('logs.txt');
+
+    set_exception_handler(function(Exception $exception) use ($logger) {
 
         $msg = "Exception: " . $exception->getMessage() . " in file " . $exception->getFile() . " on line " . $exception->getLine() . "\n";
 

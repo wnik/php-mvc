@@ -22,3 +22,7 @@
 
 [ERROR] - 2017-05-20 15:54:09: Exception: Controller does not exists or controller name is incorrect -> App\Controllers\ArticleController in file C:\xampp\htdocs\app\core\Request.php on line 82
 
+[ERROR] - 2017-05-20 18:54:12: Exception: Controller does not exists or controller name is incorrect -> App\Controllers\ArticleController in file C:\xampp\htdocs\app\core\Request.php on line 82
+
+[ERROR] - 2017-05-20 20:58:24: Exception: Controller does not exists or controller name is incorrect -> App\Controllers\ArticleController in file C:\Users\xd\Desktop\mvc git\app\core\Request.php on line 82
+

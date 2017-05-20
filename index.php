@@ -4,20 +4,26 @@
 
     use App\Core\{Routes, Route, Request, Router, UriFilter, TxtFileLogger, View};
 
+    set_exception_handler(function(Exception $exception) {
+        $logger = new TxtFileLogger('logs.txt');
 
-    $logger = new TxtFileLogger('logs.txt');
+        $msg = "Exception: " . $exception->getMessage() . " in file " . $exception->getFile() . " on line " . $exception->getLine() . "\n";
 
-    $view = new View($logger);
+        $logger->log($msg);
 
-    $routes = new Routes($logger);
+        echo $msg;
+    });
+
+    $view = new View();
+
+    $routes = new Routes();
 
     $routes->add('home_page',
                  new Route('/^$/',
                      array(
                          'controller' => 'Home',
                          'action' => 'index'
-                     ),
-                    $logger
+                     )
                  )
     );
 
@@ -26,8 +32,7 @@
                      array(
                          'controller' => 'Error',
                          'action' => 'index'
-                     ),
-                    $logger
+                     )
                  )
     );
 
@@ -36,8 +41,7 @@
                      array(
                          'controller' => 'Article',
                          'action' => 'find'
-                     ),
-                    $logger
+                     )
                  )
     );
 
@@ -46,11 +50,10 @@
                      array(
                          'controller' => 'Article',
                          'action' => 'showAll'
-                     ),
-                    $logger
+                     )
                  )
     );
 
-    $request = new Request($_SERVER['REQUEST_URI'], new UriFilter(), $routes, $view, $logger);
+    $request = new Request($_SERVER['REQUEST_URI'], new UriFilter(), $routes, $view);
 
     $router = new Router($request, $routes);

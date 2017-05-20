@@ -9,14 +9,7 @@ use App\Interfaces\LoggerInterface;
  */
 class View
 {
-    private $logger;
-
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-
-    public function render(string $file, array $variables = array(), int $status = 200)
+       public function render(string $file, array $variables = array(), int $status = 200)
     {
         extract($variables);
 
@@ -29,10 +22,6 @@ class View
             require_once $filePath;
         }
         else
-        {
-            $this->logger->log("View: $filePath not found");
-
             throw new \Exception("View: $filePath not found");
-        }
     }
 }
